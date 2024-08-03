@@ -50,10 +50,19 @@ public class UserController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // GET request, get all users in mongo db.
+    // GET request, get all users in mongo db non JSON.
     @GetMapping("/all")
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    // GET request Endpoint to get all user names as JSON for index.html
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllUserNames() {
+        List<String> names = userRepository.findAll().stream()
+                .map(User::getName)
+                .toList();
+        return ResponseEntity.ok(names);
     }
 
 }

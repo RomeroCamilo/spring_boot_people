@@ -2,9 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Index Page</title>
+    <script>
+        function fetchUserNames() {
+            fetch('/users/names')
+                .then(response => response.json())
+                .then(names => {
+                    const namesList = document.getElementById('namesList');
+                    namesList.innerHTML = ''; // Clear existing names
+                    names.forEach(name => {
+                        const li = document.createElement('li');
+                        li.textContent = name;
+                        namesList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching user names:', error));
+        }
+    </script>
 </head>
 <body>
-<h1>Welcome to the Spring Boot Application!</h1>
-<p th:text="'Current time: ' + ${currentTime}"></p>
-</body>
+    <h1>Welcome to the Spring Boot Application!</h1>
+    <p th:text="'Current time: ' + ${currentTime}"></p>
+    <h2>User Names</h2>
+    <button onclick="fetchUserNames()">Fetch User Names</button>
+        <ul id="namesList">
+            <!-- User names will be populated here after clicking the button -->
+        </ul>
+    </body>
 </html>
