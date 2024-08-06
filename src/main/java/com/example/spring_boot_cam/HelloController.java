@@ -12,7 +12,7 @@ public class HelloController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("currentTime", LocalDateTime.now());
-        return "index"; // This corresponds to src/main/resources/templates/index.html
+        return "index.html"; // This corresponds to src/main/resources/templates/index.html
     }
 
 }
